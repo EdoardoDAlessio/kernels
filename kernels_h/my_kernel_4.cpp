@@ -5,11 +5,11 @@
 #include "aie_api/utils.hpp"
 
 
-#define HISTO_ROWS 4
+#define HISTO_ROWS 2
 #define HISTO_COL 256
 #define TARGET 128
-#define START 12
-#define END 16
+#define START 6
+#define END 8
 
 
 //API REFERENCE for STREAM: 
