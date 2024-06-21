@@ -6,16 +6,16 @@
 
 
 #define HISTO_ROWS 2
-#define HISTO_COL 24
-#define TARGET 12
-#define START 22
-#define END 24
+#define HISTO_COL 256
+#define TARGET 128
+#define START 20
+#define END 22
 
 
 //API REFERENCE for STREAM: 
-// https://docs.amd.com/r/ehttps://docs.amd.com/r/en-US/ug109-ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Streamn-US/ug109-ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Stream
+// https://docs.amd.com/r/ehttps://docs.amd.com/r/en-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Streamn-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Stream
 
-void my_kernel_function11 (input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2,output_stream<int>* restrict output)
+void my_kernel_function11 (input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 { 
     // read from one stream and write to another
     int i, j, k;
@@ -34,7 +34,7 @@ void my_kernel_function11 (input_stream<uint8>* restrict input, input_stream<uin
 
     //aie vectors with zeros and ones
     aie::vector<uint8, TARGET> zeros = aie::zeros<uint8, TARGET>();
-    aie::vector<uint8, TARGET> ones = aie::broadcast<uint8, TARGET>(1)
+    aie::vector<uint8, TARGET> ones = aie::broadcast<uint8, TARGET>(1);
 
     //masks for comparison
     aie::mask<TARGET> mask_x;
@@ -45,9 +45,9 @@ void my_kernel_function11 (input_stream<uint8>* restrict input, input_stream<uin
     aie::vector<uint8, TARGET> compare_y = aie::zeros<uint8, TARGET>(); //resetting compare_y to 0
     aie::vector<int, 4> print = aie::zeros<int, 4>();
 
-    for( k=0; k<24*24/TARGET; k++ ){
+    for( k=0; k<256*256/TARGET; k++ ){
         aie::vector<uint8, TARGET> x = readincr_v<TARGET>(input);
-        aie::vector<uint8, TARGET> y = readincr_v<TARGET>(input2)
+        aie::vector<uint8, TARGET> y = readincr_v<TARGET>(input2);
 
         //aie vector to compare floating and reference
         aie::vector<uint8, TARGET> compare_x = aie::broadcast<uint8, TARGET>(START);
@@ -57,7 +57,7 @@ void my_kernel_function11 (input_stream<uint8>* restrict input, input_stream<uin
         compare_y = zeros;
 
         for( i = START; i < END; i++ ){
-            for( j = 0; j < 24; j++ ){
+            for( j = 0; j < 256; j++ ){
                 mask_x = aie::eq( x, compare_x );
                 mask_y = aie::eq( y, compare_y );
 
@@ -73,8 +73,8 @@ void my_kernel_function11 (input_stream<uint8>* restrict input, input_stream<uin
                 writeincr(output, joint[pos_x][pos_y]);*/
                 if(red){
                     print.set(pos_x + START, 0);
-                    print.set(pos_y, 1)
-                    print.set(joint[pos_x][pos_y], 2)
+                    print.set(pos_y, 1);
+                    print.set(joint[pos_x][pos_y], 2);
                     writeincr(output, print);
                 }
                 
@@ -82,8 +82,8 @@ void my_kernel_function11 (input_stream<uint8>* restrict input, input_stream<uin
                 hist_y[pos_y] = (int) mask_y.count();
 
                 if( val == TARGET ){
-                    i = 100;
-                    j = 100;
+                    i = 1000;
+                    j = 1000;
                 }
 
                 compare_y = aie::add( compare_y, ones);   
