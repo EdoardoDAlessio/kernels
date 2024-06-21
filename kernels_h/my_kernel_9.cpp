@@ -24,11 +24,11 @@ void my_kernel_function9 (input_stream<uint8>* restrict input, input_stream<uint
     int hist_x[HISTO_ROWS], hist_y[HISTO_COL];
     int pos_x = 0, pos_y = 0;
 
-    for( i=START; i < END; i++ ){
+    for( i=0; i < HISTO_ROWS; i++ ){
         hist_x[i] = 0;
-        hist_y[i] = 0;
-        for( j = 0; j < END; j++ ){
+        for( j = 0; j < HISTO_COL; j++ ){
             joint[i][j] = 0;
+            hist_y[i] = 0;
         }
     }
 
