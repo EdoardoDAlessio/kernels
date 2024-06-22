@@ -21,14 +21,13 @@ void my_kernel_function118 (input_stream<uint8>* restrict input, input_stream<ui
     int i, j, k;
     int red = 0, val = 0;
     int joint[HISTO_ROWS][HISTO_COL];
-    int hist_x[HISTO_ROWS], hist_y[HISTO_COL];
+    int hist_x[HISTO_ROWS];
     int pos_x = 0, pos_y = 0;
 
     for( i=0; i < HISTO_ROWS; i++ ){
         hist_x[i] = 0;
         for( j = 0; j < HISTO_COL; j++ ){
             joint[i][j] = 0;
-            hist_y[i] = 0;
         }
     }
 
@@ -79,7 +78,7 @@ void my_kernel_function118 (input_stream<uint8>* restrict input, input_stream<ui
                 }
                 
                 
-                hist_y[pos_y] = (int) mask_y.count();
+
 
                 if( val == TARGET ){
                     i = 1000;
