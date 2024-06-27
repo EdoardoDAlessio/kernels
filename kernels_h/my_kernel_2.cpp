@@ -1,4 +1,4 @@
-#include "my_kernel_6.h"
+#include "my_kernel_2.h"
 #include "common.h"
 #include "aie_api/aie.hpp"
 #include "aie_api/aie_adf.hpp"
@@ -9,8 +9,8 @@
 #define HISTO_ROWS 32
 #define HISTO_COL 256
 #define TARGET 128
-#define START 160
-#define END 192
+#define START 32
+#define END 64
 #define LEN 8
 #define IMM_SIZE 512
 #define NUM_INPUT 16
@@ -18,7 +18,7 @@
 //API REFERENCE for STREAM: 
 // https://docs.amd.com/r/ehttps://docs.amd.com/r/en-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Streamn-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Stream
 
-void my_kernel_function6(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
+void my_kernel_function2(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {// read from one stream and write to another
     int i, j, k, hist=0, values=0;
     int red = 0, val = 0, print_on=0, stop = -1000000, finish_aie = -12345678;

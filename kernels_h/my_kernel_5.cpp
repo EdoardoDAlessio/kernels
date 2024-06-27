@@ -59,12 +59,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
         while( getInput ){
             do{
                 aie::vector<uint8, TARGET> x1 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y1 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x1 = aie::ge(x1, compare_x); //out[i] = v[i] >= START;
                 mask_y1 = aie::lt(x1,end); //out[i] = v[i] < END;
                 mask1 = mask_x1 & mask_y1;
             }while( !mask1.count() && input_number < IMM_SIZE*(size+1)/TARGET );
-            values += mask1;
+            values += mask1.count();
             if( input_number == IMM_SIZE*(size+1)/TARGET ){
                 getInput = 0; 
                 break;
@@ -72,12 +73,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do{
                 aie::vector<uint8, TARGET> x2 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y2 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x2 = aie::ge(x2, compare_x); //out[i] = v[i] >= START;
                 mask_y2 = aie::lt(x2,end); //out[i] = v[i] < END;
                 mask2 = mask_x2 & mask_y2;
             }while( !mask2.count() && input_number < IMM_SIZE*(size+1)/TARGET );
-            values += mask2;
+            values += mask2.count();
             if( input_number == IMM_SIZE*(size+1)/TARGET ){
                 getInput = 0; 
                 break;
@@ -85,12 +87,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x3 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y3 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x3 = aie::ge(x3, compare_x); // out[i] = v[i] >= START;
                 mask_y3 = aie::lt(x3, end); // out[i] = v[i] < END;
                 mask3 = mask_x3 & mask_y3;
             } while (!mask3.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask3;
+            values += mask3.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -98,12 +101,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x4 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y4 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x4 = aie::ge(x4, compare_x); // out[i] = v[i] >= START;
                 mask_y4 = aie::lt(x4, end); // out[i] = v[i] < END;
                 mask4 = mask_x4 & mask_y4;
             } while (!mask4.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask4;
+            values += mask4.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -111,12 +115,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x5 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y5 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x5 = aie::ge(x5, compare_x); // out[i] = v[i] >= START;
                 mask_y5 = aie::lt(x5, end); // out[i] = v[i] < END;
                 mask5 = mask_x5 & mask_y5;
             } while (!mask5.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask5;
+            values += mask5.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -124,12 +129,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x6 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y6 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x6 = aie::ge(x6, compare_x); // out[i] = v[i] >= START;
                 mask_y6 = aie::lt(x6, end); // out[i] = v[i] < END;
                 mask6 = mask_x6 & mask_y6;
             } while (!mask6.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask6;
+            values += mask6.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -137,12 +143,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x7 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y7 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x7 = aie::ge(x7, compare_x); // out[i] = v[i] >= START;
                 mask_y7 = aie::lt(x7, end); // out[i] = v[i] < END;
                 mask7 = mask_x7 & mask_y7;
             } while (!mask7.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask7;
+            values += mask7.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -150,12 +157,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x8 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y8 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x8 = aie::ge(x8, compare_x); // out[i] = v[i] >= START;
                 mask_y8 = aie::lt(x8, end); // out[i] = v[i] < END;
                 mask8 = mask_x8 & mask_y8;
             } while (!mask8.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask8;
+            values += mask8.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -163,12 +171,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x9 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y9 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x9 = aie::ge(x9, compare_x); // out[i] = v[i] >= START;
                 mask_y9 = aie::lt(x9, end); // out[i] = v[i] < END;
                 mask9 = mask_x9 & mask_y9;
             } while (!mask9.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask9;
+            values += mask9.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -176,12 +185,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x10 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y10 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x10 = aie::ge(x10, compare_x); // out[i] = v[i] >= START;
                 mask_y10 = aie::lt(x10, end); // out[i] = v[i] < END;
                 mask10 = mask_x10 & mask_y10;
             } while (!mask10.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask10;
+            values += mask10.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -189,12 +199,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x11 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y11 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x11 = aie::ge(x11, compare_x); // out[i] = v[i] >= START;
                 mask_y11 = aie::lt(x11, end); // out[i] = v[i] < END;
                 mask11 = mask_x11 & mask_y11;
             } while (!mask11.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask11;
+            values += mask11.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -202,12 +213,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x12 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y12 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x12 = aie::ge(x12, compare_x); // out[i] = v[i] >= START;
                 mask_y12 = aie::lt(x12, end); // out[i] = v[i] < END;
                 mask12 = mask_x12 & mask_y12;
             } while (!mask12.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask12;
+            values += mask12.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -215,12 +227,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x13 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y13 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x13 = aie::ge(x13, compare_x); // out[i] = v[i] >= START;
                 mask_y13 = aie::lt(x13, end); // out[i] = v[i] < END;
                 mask13 = mask_x13 & mask_y13;
             } while (!mask13.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask13;
+            values += mask13.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -228,12 +241,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x14 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y14 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x14 = aie::ge(x14, compare_x); // out[i] = v[i] >= START;
                 mask_y14 = aie::lt(x14, end); // out[i] = v[i] < END;
                 mask14 = mask_x14 & mask_y14;
             } while (!mask14.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask14;
+            values += mask14.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -241,12 +255,13 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x15 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y15 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x15 = aie::ge(x15, compare_x); // out[i] = v[i] >= START;
                 mask_y15 = aie::lt(x15, end); // out[i] = v[i] < END;
                 mask15 = mask_x15 & mask_y15;
             } while (!mask15.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask15;
+            values += mask15.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
@@ -254,68 +269,95 @@ void my_kernel_function5(input_stream<uint8>* restrict input, input_stream<uint8
 
             do {
                 aie::vector<uint8, TARGET> x16 = readincr_v<TARGET>(input);
+                aie::vector<uint8, TARGET> y16 = readincr_v<TARGET>(input2);
                 input_number++;
                 mask_x16 = aie::ge(x16, compare_x); // out[i] = v[i] >= START;
                 mask_y16 = aie::lt(x16, end); // out[i] = v[i] < END;
                 mask16 = mask_x16 & mask_y16;
             } while (!mask16.count() && input_number < IMM_SIZE * (size + 1) / TARGET);
-            values += mask16;
+            values += mask16.count();
             if (input_number == IMM_SIZE * (size + 1) / TARGET) {
                 getInput = 0;
                 break;
             } 
         }
 
-        aie::vector<uint8, TARGET> y1 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y2 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y3 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y4 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y5 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y6 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y7 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y8 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y9 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y10 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y11 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y12 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y13 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y14 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y15 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y16 = readincr_v<TARGET>(input2);
-
-
         if( values ){
             //setting inerting variables if the the vector x_i didn't take any input
-            if( mask2 )
-                x2 = aie::broadcast<uint8, TARGET>(END);
-            if( mask3 )
-                x3 = aie::broadcast<uint8, TARGET>(END);
-            if( mask4 )
-                x4 = aie::broadcast<uint8, TARGET>(END);
-            if( mask5 )
-                x5 = aie::broadcast<uint8, TARGET>(END);
-            if( mask6 )
-                x6 = aie::broadcast<uint8, TARGET>(END);
-            if( mask7 )
-                x7 = aie::broadcast<uint8, TARGET>(END);
-            if( mask8 )
-                x8 = aie::broadcast<uint8, TARGET>(END);
-            if( mask9 )
-                x9 = aie::broadcast<uint8, TARGET>(END);
-            if( mask10 )
-                x10 = aie::broadcast<uint8, TARGET>(END);
-            if( mask11 )
-                x11 = aie::broadcast<uint8, TARGET>(END);
-            if( mask12 )
-                x12 = aie::broadcast<uint8, TARGET>(END);
-            if( mask13 )
-                x13 = aie::broadcast<uint8, TARGET>(END);
-            if( mask14 )
-                x14 = aie::broadcast<uint8, TARGET>(END);
-            if( mask15 )
-                x15 = aie::broadcast<uint8, TARGET>(END);
-            if( mask16 )
-                x16 = aie::broadcast<uint8, TARGET>(END);
+            if( !mask2.count() ){
+                aie::vector<uint8, TARGET> x2 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y2 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask3.count() ){
+                aie::vector<uint8, TARGET> x3 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y3 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask4.count() ){
+                aie::vector<uint8, TARGET> x4 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y4 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask5.count() ){
+                aie::vector<uint8, TARGET> x5 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y5 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask6.count() ){
+                aie::vector<uint8, TARGET> x6 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y6 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask7.count() ){
+                aie::vector<uint8, TARGET> x7 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y7 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask8.count() ){
+                aie::vector<uint8, TARGET> x8 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y8 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask9.count() ){
+                aie::vector<uint8, TARGET> x9 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y9 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask10.count() ){
+                aie::vector<uint8, TARGET> x10 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y10 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask11.count() ){
+                aie::vector<uint8, TARGET> x11 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y11 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask12.count() ){
+                aie::vector<uint8, TARGET> x12 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y12 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask13.count() ){
+                aie::vector<uint8, TARGET> x13 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y13 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask14.count() ){
+                aie::vector<uint8, TARGET> x14 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y14 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask15.count() ){
+                aie::vector<uint8, TARGET> x15 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y15 = aie::broadcast<uint8, TARGET>(0);
+            }
+
+            if( !mask16.count() ){
+                aie::vector<uint8, TARGET> x16 = aie::broadcast<uint8, TARGET>(END);
+                aie::vector<uint8, TARGET> y16 = aie::broadcast<uint8, TARGET>(0);
+            }
 
             val = 0, red = 0; 
             compare_y = zeros;
