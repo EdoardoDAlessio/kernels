@@ -20,8 +20,6 @@
 
 void my_kernel_function8(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {
-    
-
     // read from one stream and write to another
     int i, j, k, hist=0;
     int red = 0, val = 0, print_on=0, stop = -1, finish_aie = -101;
@@ -139,9 +137,12 @@ void my_kernel_function8(input_stream<uint8>* restrict input, input_stream<uint8
         mask_y16 = aie::lt(x16,end);
         mask16 = mask_x16 & mask_y16;
 
-        mask1 = mask1 & mask2 & mask3 & mask4 & mask5 & mask6 & mask7 & mask8 & mask9 & mask10 & mask11 & mask12 & mask13 & mask14 & mask15 & mask16;
+        red = (int)mask1.count() + (int)mask2.count() + (int)mask3.count() + (int)mask4.count() + 
+            (int)mask5.count() + (int)mask6.count() + (int)mask7.count() + (int)mask8.count() + 
+            (int)mask9.count() + (int)mask10.count() + (int)mask11.count() + (int)mask12.count() + 
+            (int)mask13.count() + (int)mask14.count() + (int)mask15.count() + (int)mask16.count();
 
-        if( (int) mask1.count() ){
+        if( red ){
             //aie vector to compare floating and reference
             
             val = 0, red = 0; 
