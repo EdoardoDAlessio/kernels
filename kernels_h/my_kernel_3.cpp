@@ -1,4 +1,4 @@
-#include "my_kernel_3."
+#include "my_kernel_3.h"
 #include "common.h"
 #include "aie_api/aie.hpp"
 #include "aie_api/aie_adf.hpp"
@@ -13,11 +13,12 @@
 #define END 96
 #define LEN 8
 #define IMM_SIZE 512
+#define NUM_INPUT 4
 
 //API REFERENCE for STREAM: 
 // https://docs.amd.com/r/ehttps://docs.amd.com/r/en-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Streamn-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Stream
 
-void my_kernel_function3(nput_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
+void my_kernel_function3(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {
     // read from one stream and write to another
     int i, j, k, hist=0;
@@ -37,18 +38,10 @@ void my_kernel_function3(nput_stream<uint8>* restrict input, input_stream<uint8>
     aie::vector<uint8, TARGET> ones = aie::broadcast<uint8, TARGET>(1);
 
     //masks for comparison
-    aie::mask<TARGET> mask_x1;
-    aie::mask<TARGET> mask_x2;
-    aie::mask<TARGET> mask_x3;
-    aie::mask<TARGET> mask_x4;
-    aie::mask<TARGET> mask_y1;
-    aie::mask<TARGET> mask_y2;
-    aie::mask<TARGET> mask_y3;
-    aie::mask<TARGET> mask_y4;
-    aie::mask<TARGET> mask1;
-    aie::mask<TARGET> mask2;
-    aie::mask<TARGET> mask3;
-    aie::mask<TARGET> mask4;
+    aie::mask<TARGET> mask_x1, mask_x2, mask_x3, mask_x4, mask_x5, mask_x6, mask_x7, mask_x8, mask_x9, mask_x10, mask_x11, mask_x12, mask_x13, mask_x14, mask_x15, mask_x16;
+    aie::mask<TARGET> mask_y1, mask_y2, mask_y3, mask_y4, mask_y5, mask_y6, mask_y7, mask_y8, mask_y9, mask_y10, mask_y11, mask_y12, mask_y13, mask_y14, mask_y15, mask_y16;
+    aie::mask<TARGET> mask1, mask2, mask3, mask4, mask5, mask6, mask7, mask8, mask9, mask10, mask11, mask12, mask13, mask14, mask15, mask16;
+
 
     
     aie::vector<uint8, TARGET> compare_y = aie::zeros<uint8, TARGET>(); //resetting compare_y to 0
@@ -61,10 +54,35 @@ void my_kernel_function3(nput_stream<uint8>* restrict input, input_stream<uint8>
         aie::vector<uint8, TARGET> x2 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x3 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x4 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x5 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x6 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x7 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x8 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x9 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x10 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x11 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x12 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x13 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x14 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x15 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x16 = readincr_v<TARGET>(input);
+
         aie::vector<uint8, TARGET> y1 = readincr_v<TARGET>(input2);
         aie::vector<uint8, TARGET> y2 = readincr_v<TARGET>(input2);
         aie::vector<uint8, TARGET> y3 = readincr_v<TARGET>(input2);
         aie::vector<uint8, TARGET> y4 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y5 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y6 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y7 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y8 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y9 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y10 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y11 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y12 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y13 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y14 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y15 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y16 = readincr_v<TARGET>(input2);
         //writeincr( output, 55555 );
         //aie vector to compare floating and reference
         aie::vector<uint8, TARGET> compare_x = aie::broadcast<uint8, TARGET>(START);
@@ -74,20 +92,60 @@ void my_kernel_function3(nput_stream<uint8>* restrict input, input_stream<uint8>
         for( i=START; i < END; i++ ){ //i is not reinizilized so that if i exit on VAL == TARGET i dont reenter
             for( j = 0; j < 256; j++ ){
                 //writeincr( output, 2123123123 );
-                mask_x1 = aie::eq( x1, compare_x );
-                mask_y1 = aie::eq( y1, compare_y );
-                mask1 = mask_x1 & mask_y1 ;
-                mask_x2 = aie::eq( x2, compare_x );
-                mask_y2 = aie::eq( y2, compare_y );
-                mask2 = mask_x2 & mask_y2 ;
-                mask_x3 = aie::eq( x3, compare_x );
-                mask_y3 = aie::eq( y3, compare_y );
-                mask3 = mask_x3 & mask_y3 ;
-                mask_x4 = aie::eq( x4, compare_x );
-                mask_y4 = aie::eq( y4, compare_y );
-                mask4 = mask_x4 & mask_y4 ;
+                mask_x1 = aie::eq(x1, compare_x);
+                mask_y1 = aie::eq(y1, compare_y);
+                mask1 = mask_x1 & mask_y1;
+                mask_x2 = aie::eq(x2, compare_x);
+                mask_y2 = aie::eq(y2, compare_y);
+                mask2 = mask_x2 & mask_y2;
+                mask_x3 = aie::eq(x3, compare_x);
+                mask_y3 = aie::eq(y3, compare_y);
+                mask3 = mask_x3 & mask_y3;
+                mask_x4 = aie::eq(x4, compare_x);
+                mask_y4 = aie::eq(y4, compare_y);
+                mask4 = mask_x4 & mask_y4;
+                mask_x5 = aie::eq(x5, compare_x);
+                mask_y5 = aie::eq(y5, compare_y);
+                mask5 = mask_x5 & mask_y5;
+                mask_x6 = aie::eq(x6, compare_x);
+                mask_y6 = aie::eq(y6, compare_y);
+                mask6 = mask_x6 & mask_y6;
+                mask_x7 = aie::eq(x7, compare_x);
+                mask_y7 = aie::eq(y7, compare_y);
+                mask7 = mask_x7 & mask_y7;
+                mask_x8 = aie::eq(x8, compare_x);
+                mask_y8 = aie::eq(y8, compare_y);
+                mask8 = mask_x8 & mask_y8;
+                mask_x9 = aie::eq(x9, compare_x);
+                mask_y9 = aie::eq(y9, compare_y);
+                mask9 = mask_x9 & mask_y9;
+                mask_x10 = aie::eq(x10, compare_x);
+                mask_y10 = aie::eq(y10, compare_y);
+                mask10 = mask_x10 & mask_y10;
+                mask_x11 = aie::eq(x11, compare_x);
+                mask_y11 = aie::eq(y11, compare_y);
+                mask11 = mask_x11 & mask_y11;
+                mask_x12 = aie::eq(x12, compare_x);
+                mask_y12 = aie::eq(y12, compare_y);
+                mask12 = mask_x12 & mask_y12;
+                mask_x13 = aie::eq(x13, compare_x);
+                mask_y13 = aie::eq(y13, compare_y);
+                mask13 = mask_x13 & mask_y13;
+                mask_x14 = aie::eq(x14, compare_x);
+                mask_y14 = aie::eq(y14, compare_y);
+                mask14 = mask_x14 & mask_y14;
+                mask_x15 = aie::eq(x15, compare_x);
+                mask_y15 = aie::eq(y15, compare_y);
+                mask15 = mask_x15 & mask_y15;
+                mask_x16 = aie::eq(x16, compare_x);
+                mask_y16 = aie::eq(y16, compare_y);
+                mask16 = mask_x16 & mask_y16;
 
-                red = (int) mask1.count() + (int) mask2.count() + (int) mask3.count() + (int) mask4.count();
+                
+                red = (int)mask1.count() + (int)mask2.count() + (int)mask3.count() + (int)mask4.count() +
+                    (int)mask5.count() + (int)mask6.count() + (int)mask7.count() + (int)mask8.count() +
+                    (int)mask9.count() + (int)mask10.count() + (int)mask11.count() + (int)mask12.count() +
+                    (int)mask13.count() + (int)mask14.count() + (int)mask15.count() + (int)mask16.count();
                 val += red;
                 
                 if( red ){
@@ -112,7 +170,7 @@ void my_kernel_function3(nput_stream<uint8>* restrict input, input_stream<uint8>
                     pos += LEN;
                 }
 
-                if( val == TARGET*4 ){
+                if( val == TARGET*NUM_INPUT ){
                     i = 1000;
                     j = 1000;
                     if( print_on == 0 ){//we already flushed the values
@@ -139,7 +197,10 @@ void my_kernel_function3(nput_stream<uint8>* restrict input, input_stream<uint8>
             compare_y = zeros;
 
             //at the end i print in output the marginal histogram
-            hist = (int) mask_x1.count() + (int) mask_x2.count() + (int) mask_x3.count() + (int) mask_x4.count();
+            hist = (int)mask_x1.count() + (int)mask_x2.count() + (int)mask_x3.count() + (int)mask_x4.count() +
+                    (int)mask_x5.count() + (int)mask_x6.count() + (int)mask_x7.count() + (int)mask_x8.count() +
+                    (int)mask_x9.count() + (int)mask_x10.count() + (int)mask_x11.count() + (int)mask_x12.count() +
+                    (int)mask_x13.count() + (int)mask_x14.count() + (int)mask_x15.count() + (int)mask_x16.count();
             if( hist ){
                 writeincr( output, -2);
                 writeincr( output, hist );
