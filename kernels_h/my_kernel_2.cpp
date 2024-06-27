@@ -17,7 +17,7 @@
 //API REFERENCE for STREAM: 
 // https://docs.amd.com/r/ehttps://docs.amd.com/r/en-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Streamn-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Stream
 
-void my_kernel_function2 (input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
+void my_kernel_function2(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {
     // read from one stream and write to another
     int i, j, k, hist=0;
@@ -59,11 +59,11 @@ void my_kernel_function2 (input_stream<uint8>* restrict input, input_stream<uint
     for( k=0; k<IMM_SIZE*(size+1)/TARGET; k++ ){
         aie::vector<uint8, TARGET> x1 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x2 = readincr_v<TARGET>(input);
-        aie::vector<uint8, TARGET> x2 = readincr_v<TARGET>(input);
+        aie::vector<uint8, TARGET> x3 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x4 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> y1 = readincr_v<TARGET>(input2);
         aie::vector<uint8, TARGET> y2 = readincr_v<TARGET>(input2);
-        aie::vector<uint8, TARGET> y2 = readincr_v<TARGET>(input2);
+        aie::vector<uint8, TARGET> y3 = readincr_v<TARGET>(input2);
         aie::vector<uint8, TARGET> y4 = readincr_v<TARGET>(input2);
         //writeincr( output, 55555 );
         //aie vector to compare floating and reference
@@ -73,16 +73,16 @@ void my_kernel_function2 (input_stream<uint8>* restrict input, input_stream<uint
         
         for( i=START; i < END; i++ ){ //i is not reinizilized so that if i exit on VAL == TARGET i dont reenter
             for( j = 0; j < 256; j++ ){
-                //writeincr( output, 2123123122 );
+                //writeincr( output, 2123123123 );
                 mask_x1 = aie::eq( x1, compare_x );
                 mask_y1 = aie::eq( y1, compare_y );
                 mask1 = mask_x1 & mask_y1 ;
                 mask_x2 = aie::eq( x2, compare_x );
                 mask_y2 = aie::eq( y2, compare_y );
                 mask2 = mask_x2 & mask_y2 ;
-                mask_x2 = aie::eq( x3, compare_x );
-                mask_y2 = aie::eq( y3, compare_y );
-                mask2 = mask_x2 & mask_y2 ;
+                mask_x3 = aie::eq( x3, compare_x );
+                mask_y3 = aie::eq( y3, compare_y );
+                mask3 = mask_x3 & mask_y3 ;
                 mask_x4 = aie::eq( x4, compare_x );
                 mask_y4 = aie::eq( y4, compare_y );
                 mask4 = mask_x4 & mask_y4 ;
