@@ -1,4 +1,4 @@
-#include "my_kernel_3.h"
+#include "my_kernel_3."
 #include "common.h"
 #include "aie_api/aie.hpp"
 #include "aie_api/aie_adf.hpp"
@@ -17,7 +17,7 @@
 //API REFERENCE for STREAM: 
 // https://docs.amd.com/r/ehttps://docs.amd.com/r/en-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Streamn-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Stream
 
-void my_kernel_function3(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
+void my_kernel_function3(nput_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {
     // read from one stream and write to another
     int i, j, k, hist=0;

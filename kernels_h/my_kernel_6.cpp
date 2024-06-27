@@ -1,4 +1,4 @@
-#include "my_kernel_6.h"
+#include "my_kernel_6."
 #include "common.h"
 #include "aie_api/aie.hpp"
 #include "aie_api/aie_adf.hpp"
@@ -17,7 +17,7 @@
 //API REFERENCE for STREAM: 
 // https://docs.amd.com/r/ehttps://docs.amd.com/r/en-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Streamn-US/ug1029ai-engine-kernel-coding/Reading-and-Advancing-an-Input-Stream
 
-void my_kernel_function6(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
+void my_kernel_function6(nput_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {
     // read from one stream and write to another
     int i, j, k, hist=0;
@@ -87,7 +87,7 @@ void my_kernel_function6(input_stream<uint8>* restrict input, input_stream<uint8
                 mask_y4 = aie::eq( y4, compare_y );
                 mask4 = mask_x4 & mask_y4 ;
 
-                red = (int) mask1.count() + (int) mask2.count() + (int) mask6.count() + (int) mask4.count();
+                red = (int) mask1.count() + (int) mask2.count() + (int) mask3.count() + (int) mask4.count();
                 val += red;
                 
                 if( red ){
@@ -139,7 +139,7 @@ void my_kernel_function6(input_stream<uint8>* restrict input, input_stream<uint8
             compare_y = zeros;
 
             //at the end i print in output the marginal histogram
-            hist = (int) mask_x1.count() + (int) mask_x2.count() + (int) mask_x6.count() + (int) mask_x4.count();
+            hist = (int) mask_x1.count() + (int) mask_x2.count() + (int) mask_x3.count() + (int) mask_x4.count();
             if( hist ){
                 writeincr( output, -2);
                 writeincr( output, hist );
