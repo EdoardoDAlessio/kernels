@@ -21,6 +21,7 @@
 void my_kernel_function4(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {
     
+
     // read from one stream and write to another
     int i, j, k, hist=0;
     int red = 0, val = 0, print_on=0, stop = -1, finish_aie = -101;
@@ -50,7 +51,7 @@ void my_kernel_function4(input_stream<uint8>* restrict input, input_stream<uint8
     aie::vector<int, LEN> print_zeros = aie::zeros<int, LEN>();
     //writeincr( output, 1200 );
 
-    for( k=0; k<IMM_SIZE*(size+1)/TARGET; k++ ){
+    for( k=0; k<IMM_SIZE*(size+1)/(TARGET*NUM_INPUT); k++ ){
         aie::vector<uint8, TARGET> x1 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x2 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x3 = readincr_v<TARGET>(input);
@@ -84,62 +85,65 @@ void my_kernel_function4(input_stream<uint8>* restrict input, input_stream<uint8
         aie::vector<uint8, TARGET> y14 = readincr_v<TARGET>(input2);
         aie::vector<uint8, TARGET> y15 = readincr_v<TARGET>(input2);
         aie::vector<uint8, TARGET> y16 = readincr_v<TARGET>(input2);
+
+        aie::vector<uint8, TARGET> compare_x = aie::broadcast<uint8, TARGET>(START);
+        aie::vector<uint8, TARGET> end = aie::broadcast<uint8, TARGET>(END);
         
         //if none of the values in the input vector are between START and END, no calculation necessary
-        mask_x1 = aie::ge(x1, START); //out[i] = v[i] >= START;
-        mask_y1 = aie::lt(x1, END); //out[i] = v[i] < END;
+        mask_x1 = aie::ge(x1, compare_x); //out[i] = v[i] >= START;
+        mask_y1 = aie::lt(x1,end); //out[i] = v[i] < END;
         mask1 = mask_x1 & mask_y1;
-        mask_x2 = aie::ge(x2, START);
-        mask_y2 = aie::lt(x2, END);
+        mask_x2 = aie::ge(x2, compare_x);
+        mask_y2 = aie::lt(x2,end);
         mask2 = mask_x2 & mask_y2;
-        mask_x3 = aie::ge(x3, START);
-        mask_y3 = aie::lt(x3, END);
+        mask_x3 = aie::ge(x3, compare_x);
+        mask_y3 = aie::lt(x3,end);
         mask3 = mask_x3 & mask_y3;
-        mask_x4 = aie::ge(x4, START);
-        mask_y4 = aie::lt(x4, END);
+        mask_x4 = aie::ge(x4, compare_x);
+        mask_y4 = aie::lt(x4,end);
         mask4 = mask_x4 & mask_y4;
-        mask_x5 = aie::ge(x5, START);
-        mask_y5 = aie::lt(x5, END);
+        mask_x5 = aie::ge(x5, compare_x);
+        mask_y5 = aie::lt(x5,end);
         mask5 = mask_x5 & mask_y5;
-        mask_x6 = aie::ge(x6, START);
-        mask_y6 = aie::lt(x6, END);
+        mask_x6 = aie::ge(x6, compare_x);
+        mask_y6 = aie::lt(x6,end);
         mask6 = mask_x6 & mask_y6;
-        mask_x7 = aie::ge(x7, START);
-        mask_y7 = aie::lt(x7, END);
+        mask_x7 = aie::ge(x7, compare_x);
+        mask_y7 = aie::lt(x7,end);
         mask7 = mask_x7 & mask_y7;
-        mask_x8 = aie::ge(x8, START);
-        mask_y8 = aie::lt(x8, END);
+        mask_x8 = aie::ge(x8, compare_x);
+        mask_y8 = aie::lt(x8,end);
         mask8 = mask_x8 & mask_y8;
-        mask_x9 = aie::ge(x9, START);
-        mask_y9 = aie::lt(x9, END);
+        mask_x9 = aie::ge(x9, compare_x);
+        mask_y9 = aie::lt(x9,end);
         mask9 = mask_x9 & mask_y9;
-        mask_x10 = aie::ge(x10, START);
-        mask_y10 = aie::lt(x10, END);
+        mask_x10 = aie::ge(x10, compare_x);
+        mask_y10 = aie::lt(x10,end);
         mask10 = mask_x10 & mask_y10;
-        mask_x11 = aie::ge(x11, START);
-        mask_y11 = aie::lt(x11, END);
+        mask_x11 = aie::ge(x11, compare_x);
+        mask_y11 = aie::lt(x11,end);
         mask11 = mask_x11 & mask_y11;
-        mask_x12 = aie::ge(x12, START);
-        mask_y12 = aie::lt(x12, END);
+        mask_x12 = aie::ge(x12, compare_x);
+        mask_y12 = aie::lt(x12,end);
         mask12 = mask_x12 & mask_y12;
-        mask_x13 = aie::ge(x13, START);
-        mask_y13 = aie::lt(x13, END);
+        mask_x13 = aie::ge(x13, compare_x);
+        mask_y13 = aie::lt(x13,end);
         mask13 = mask_x13 & mask_y13;
-        mask_x14 = aie::ge(x14, START);
-        mask_y14 = aie::lt(x14, END);
+        mask_x14 = aie::ge(x14, compare_x);
+        mask_y14 = aie::lt(x14,end);
         mask14 = mask_x14 & mask_y14;
-        mask_x15 = aie::ge(x15, START);
-        mask_y15 = aie::lt(x15, END);
+        mask_x15 = aie::ge(x15, compare_x);
+        mask_y15 = aie::lt(x15,end);
         mask15 = mask_x15 & mask_y15;
-        mask_x16 = aie::ge(x16, START);
-        mask_y16 = aie::lt(x16, END);
+        mask_x16 = aie::ge(x16, compare_x);
+        mask_y16 = aie::lt(x16,end);
         mask16 = mask_x16 & mask_y16;
 
         mask1 = mask1 & mask2 & mask3 & mask4 & mask5 & mask6 & mask7 & mask8 & mask9 & mask10 & mask11 & mask12 & mask13 & mask14 & mask15 & mask16;
 
         if( (int) mask1.count() ){
             //aie vector to compare floating and reference
-            aie::vector<uint8, TARGET> compare_x = aie::broadcast<uint8, TARGET>(START);
+            
             val = 0, red = 0; 
             compare_y = zeros;
             
