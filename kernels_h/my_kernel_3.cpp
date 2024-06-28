@@ -20,7 +20,8 @@
 
 void my_kernel_function3(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {  
- // read from one stream and write to another
+ 
+    // read from one stream and write to another
     int i, j, k, hist=0, values;
     int red = 0, val = 0, print_on=0, stop = -1000000, finish_aie = -12345678;
 
@@ -37,10 +38,11 @@ void my_kernel_function3(input_stream<uint8>* restrict input, input_stream<uint8
     aie::vector<uint8, TARGET> zeros = aie::zeros<uint8, TARGET>();
     aie::vector<uint8, TARGET> ones = aie::broadcast<uint8, TARGET>(1);
 
+    
     //masks for comparison
-    aie::mask<TARGET> mask_x1, mask_x2, mask_x3, mask_x4, mask_x5, mask_x6, mask_x7, mask_x8;
-    aie::mask<TARGET> mask_y1, mask_y2, mask_y3, mask_y4, mask_y5, mask_y6, mask_y7, mask_y8;
-    aie::mask<TARGET> mask1, mask2, mask3, mask4, mask5, mask6, mask7, mask8;
+    aie::mask<TARGET> mask_x1, mask_x2, mask_x3, mask_x4, mask_x5, mask_x6, mask_x7, mask_x8, mask_x9, mask_x10, mask_x11, mask_x12, mask_x13, mask_x14, mask_x15, mask_x16;
+    aie::mask<TARGET> mask_y1, mask_y2, mask_y3, mask_y4, mask_y5, mask_y6, mask_y7, mask_y8, mask_y9, mask_y10, mask_y11, mask_y12, mask_y13, mask_y14, mask_y15, mask_y16;
+    aie::mask<TARGET> mask1, mask2, mask3, mask4, mask5, mask6, mask7, mask8, mask9, mask10, mask11, mask12, mask13, mask14, mask15, mask16;
 
     aie::vector<uint8, TARGET> compare_y = aie::zeros<uint8, TARGET>(); //resetting compare_y to 0
     aie::vector<int, LEN> print = aie::zeros<int, LEN>();
@@ -52,8 +54,9 @@ void my_kernel_function3(input_stream<uint8>* restrict input, input_stream<uint8
     
     for( k=0; k<IMM_SIZE*(size +1)*(size2+1)/(TARGET*NUM_INPUT); k++ ){
         
-        //maskh1 = 0, maskh2 = 0, maskh3 = 0, maskh4 = 0, maskh5 = 0, maskh6 = 0, maskh7 = 0, maskh8 = 0;
-        maskc1 = 0, maskc2 = 0, maskc3 = 0, maskc4 = 0, maskc5 = 0, maskc6 = 0, maskc7 = 0, maskc8 = 0;
+       
+        maskc1 = 0, maskc2 = 0, maskc3 = 0, maskc4 = 0, maskc5 = 0, maskc6 = 0, maskc7 = 0, maskc8 = 0, 
+                maskc9 = 0, maskc10 = 0, maskc11 = 0, maskc12 = 0, maskc13 = 0, maskc14 = 0, maskc15 = 0, maskc16 = 0;
         aie::vector<uint8, TARGET> x1 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x2 = readincr_v<TARGET>(input);
         aie::vector<uint8, TARGET> x3 = readincr_v<TARGET>(input);
