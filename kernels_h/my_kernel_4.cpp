@@ -21,7 +21,7 @@
 void my_kernel_function4(input_stream<uint8>* restrict input, input_stream<uint8>* restrict input2, output_stream<int>* restrict output)
 {  
  
-    // read from one stream and write to another
+   // read from one stream and write to another
     int i, j, k, hist=0, values;
     int red = 0, val = 0, print_on=0, stop = -1000000, finish_aie = -12345678;
 
@@ -49,7 +49,10 @@ void my_kernel_function4(input_stream<uint8>* restrict input, input_stream<uint8
     aie::vector<int, LEN> print_zeros = aie::zeros<int, LEN>();
     //writeincr( output, 1200 );
     
-    int maskc1 = 0, maskc2 = 0, maskc3 = 0, maskc4 = 0, maskc5 = 0, maskc6 = 0, maskc7 = 0, maskc8 = 0;
+    
+    int maskc1 = 0, maskc2 = 0, maskc3 = 0, maskc4 = 0, maskc5 = 0, maskc6 = 0, maskc7 = 0, maskc8 = 0, 
+                maskc9 = 0, maskc10 = 0, maskc11 = 0, maskc12 = 0, maskc13 = 0, maskc14 = 0, maskc15 = 0, maskc16 = 0;
+    
     //int maskh1 = 0, maskh2 = 0, maskh3 = 0, maskh4 = 0, maskh5 = 0, maskh6 = 0, maskh7 = 0, maskh8 = 0;
     
     for( k=0; k<IMM_SIZE*(size +1)*(size2+1)/(TARGET*NUM_INPUT); k++ ){
